@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>导出指定数据库文档</title>
+    <!-- 引入样式 -->
+<!--    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+        <link rel="stylesheet" href="./css/element-index.css"/>
+</head>
+<body>
+    <div id="app">
+        <el-form ref="form" :model="datasource" label-width="90px" label-position="left" title="导出数据库设计文档">
+            <el-form-item>
+                <h2 style="color: #409EFF">导出数据库设计文档</h2>
+            </el-form-item>
+            <el-form-item label="驱动">
+                <el-input v-model="datasource.datasourceDriver"></el-input>
+            </el-form-item>
+            <el-form-item label="url">
+                <el-input v-model="datasource.datasourceUrl"></el-input>
+            </el-form-item>
+            <el-form-item label="用户名">
+                <el-input v-model="datasource.datasourceUsername"></el-input>
+            </el-form-item>
+            <el-form-item label="密码">
+                <el-input v-model="datasource.datasourcePassword"></el-input>
+            </el-form-item>
+
+            <el-form-item label="数据库名称">
+                <el-input v-model="datasource.dbName"></el-input>
+            </el-form-item>
+
+            <el-form-item>
+                <el-button type="primary" @click="exportDoc">导出数据库文档</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
+</body>
+
+<!-- 引入Vue -->
+<!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
+<script src="./js/vue.js"></script>
+<!-- 引入element组件库 -->
+<!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+<script src="./js/element-index.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data:function () {
+            return {
+                datasource:{
+                    datasourceDriver: "com.mysql.cj.jdbc.Driver",
+                    datasourceUrl: "jdbc:mysql://10.10.22.161:3306/esbmanage",
+                    datasourceUsername: "root",
+                    datasourcePassword: "tong",
+                    dbName: "esbmanage"
+                }
+            }
+        },
+        methods: {
+            //下载文件
+            exportDoc: function () {
+                var url = "http://" + window.location.host + "/db/getDbDoc";
+                url += "?datasourceDriver=" + this.datasource.datasourceDriver;
+                url += "&datasourceUrl=" + this.datasource.datasourceUrl;
+                url += "&datasourceUsername=" + this.datasource.datasourceUsername;
+                url += "&datasourcePassword=" + this.datasource.datasourcePassword;
+                url += "&dbName=" + this.datasource.dbName;
+                window.open(url, '_self')
+            }
+        }
+    });
+</script>
+</html>

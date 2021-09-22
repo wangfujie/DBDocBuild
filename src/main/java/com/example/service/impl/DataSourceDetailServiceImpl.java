@@ -5,13 +5,11 @@ import com.example.service.DataSourceDetailService;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
 import com.lowagie.text.rtf.RtfWriter2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 import java.awt.*;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -35,11 +33,11 @@ public class DataSourceDetailServiceImpl implements DataSourceDetailService {
     }
 
     @Override
-    public void toWord(List<Map<String, Object>> listAll, String dbName) throws FileNotFoundException, DocumentException {
+    public void toWord(OutputStream outputStream, List<Map<String, Object>> listAll, String dbName) throws FileNotFoundException, DocumentException {
         // 创建word文档,并设置纸张的大小
         Document document = new Document(PageSize.A4);
         // 创建word文档
-        RtfWriter2.getInstance(document, new FileOutputStream("D:/数据库表.doc"));
+        RtfWriter2.getInstance(document, outputStream);
         document.open();// 设置文档标题
         Paragraph ph = new Paragraph();
         Font f = new Font();

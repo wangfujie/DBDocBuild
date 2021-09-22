@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.lowagie.text.DocumentException;
 import java.io.FileNotFoundException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -29,5 +30,5 @@ public interface DataSourceDetailService {
      * @throws FileNotFoundException
      * @throws DocumentException
      */
-    void toWord(List<Map<String, Object>> listAll, String dbName) throws FileNotFoundException, DocumentException;
+    void toWord(OutputStream outputStream, List<Map<String, Object>> listAll, String dbName) throws FileNotFoundException, DocumentException;
 }
